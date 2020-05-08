@@ -25,7 +25,7 @@
 				      <a class="nav-item nav-link" href="#">PHP Modules</a>
 				      <a class="nav-item nav-link" href="#">Wordpress Applications</a>
 				      <a class="nav-item nav-link" href="#">Web Developement</a>
-				      <a class="nav-item nav-link" href="#">Login</a>
+				      <a class="nav-item nav-link" href="#" onclick="logoutUser()" id="loginStatus">Logout</a>
 				      <a class="nav-item nav-link" href="#">Register</a>
 				    </div>
 				  </div>
@@ -82,9 +82,9 @@
 						<span class="far fa-clock"></span> Posted on 2 Apr, 2020
 					</small>
 					<hr>
-					<img src="https://via.placeholder.com/700x200" alt="" class="img-fluid">
+					<img id="postOneImg" onmouseover="alert('Mouse is ove me')" src="https://via.placeholder.com/700x200" alt="" class="img-fluid">
 					<hr>
-					<p>
+					<p id="postOneDescription">
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea alias nam, impedit, ipsam quisquam voluptate dignissimos sint adipisci esse quia qui quos sit iure. Iusto eaque, in esse ipsum alias!
 					</p>
 					<a href="post.html" class="btn btn-primary text-white" data-toggle="tooltip" data-placement="bottom" title="Read more about this post.">Read More <span class="fas fa-angle-right"></span> </a>
@@ -139,12 +139,12 @@
 			<div class="col-sm-12  col-md-4 col-lg-3">
 				<div class="card bg-light">
 					<div class="card-body">
-						<h6 class="card-title font-weight-bold">
-							Blog Search
+						<h6 class="card-title font-weight-bold" id="blogSearchTitle">
+							<i>Blog Search</i>
 						</h6>
 						<div class="input-group">
-							<input type="text" name="searchInput" class="form-control" placeholder="Search Blogs">
-							<div class="input-group-append">
+							<input type="text" name="searchInput" id="searchInput" class="form-control" placeholder="Search Blogs">
+							<div class="input-group-append" onclick="searchBlog()">
 							    <span class="input-group-text"><span class="fas fa-search"></span></span>
 							</div>
 						</div>
@@ -157,12 +157,12 @@
 							Login
 						</h6>
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Username">
+							<input type="text" id="userNameInput" class="form-control" placeholder="Username">
 						</div>
 						<div class="input-group mt-2">
-							<input type="password" class="form-control" placeholder="Password">
+							<input type="password" id="userPwdInput" class="form-control" placeholder="Password">
 							<div class="input-group-append">
-							    <button class="btn btn-primary">Login</button>
+							    <button class="btn btn-primary" onclick="logInUser()">Login</button>
 							</div>
 						</div>
 					</div>
@@ -225,7 +225,7 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	<script src="js/script.js"></script>
+	<script src="js/script.js?v=1.3"></script>
 	<script>
 		$('.btn').tooltip();
 		$('.carousel').carousel({
