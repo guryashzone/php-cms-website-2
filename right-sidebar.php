@@ -42,16 +42,19 @@
 			Categories
 		</h6>
 		<div class="font-weight-bold">
-			<p class="text-primary m-0">CMS Website.</p>
-			<p class="text-primary m-0">Javascript Tutorial.</p>
-			<p class="text-primary m-0">PHP Advanced.</p>
-			<p class="text-primary m-0">Cascading Style Sheet.</p>
-			<p class="text-primary m-0">Lorem ipsum.</p>
 			<?php 
-				echo "<p class='text-primary m-0'>Lorem ipsum 2.</p>";
-				echo "<p class='text-primary m-0'>Lorem ipsum 3.</p>";
-				echo "<p class='text-primary m-0'>Lorem ipsum 4.</p>";
+				$query = "SELECT * FROM `post_category_master` WHERE `category_status` = 'active' ORDER BY `category_id` DESC LIMIT 5";
+				$res = mysqli_query($conn, $query);
+
+				// $row = mysqli_fetch_assoc($res);
+				// $row = mysqli_fetch_array($res);
+				// echo "<p class='text-primary m-0'>{$row['category_name']}</p>";
+				
+				while ($row = mysqli_fetch_object($res)) {
+					echo "<p class='text-primary m-0'>$row->category_name</p>";
+				}
 			 ?>
+
 		</div>
 	</div>
 </div>

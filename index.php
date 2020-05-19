@@ -1,13 +1,3 @@
-<?php 
-	/*
-		include()       - Throws Warning and executes code
-		include_once()
-		require()       - Throw error and execution stops
-		require_once()
-	 */
-	
-
- ?>
  <?php 
  	require('header.php');
   ?>
