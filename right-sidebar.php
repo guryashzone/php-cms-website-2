@@ -43,7 +43,7 @@
 		</h6>
 		<div class="font-weight-bold">
 			<?php 
-				$query = "SELECT * FROM `post_category_master` WHERE `category_status` = 'active' ORDER BY `category_id` DESC LIMIT 5";
+				$query = "SELECT * FROM `post_category_master` WHERE `category_status`='active' ORDER BY `category_id` DESC LIMIT 5";
 				$res = mysqli_query($conn, $query);
 
 				// $row = mysqli_fetch_assoc($res);
@@ -51,7 +51,7 @@
 				// echo "<p class='text-primary m-0'>{$row['category_name']}</p>";
 				
 				while ($row = mysqli_fetch_object($res)) {
-					echo "<p class='text-primary m-0'>$row->category_name</p>";
+					echo "<p class='text-primary m-0'>$row->category_name ($row->category_short_name)</p>";
 				}
 			 ?>
 

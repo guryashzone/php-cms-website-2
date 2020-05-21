@@ -36,52 +36,50 @@
 			<!-- Post Div Start-->
 			<div class="col-sm-12 col-md-8 col-lg-5">
 				<?php 
-					$posts = [
-						array(
-							'postName'    => 'Javascript',
-							'description' => 'Javacsript is a powerful language.',
-							'postDate'    => '02 Apr, 2020',
-							'author'      => 'John'
-						),
-						array(
-							'postName'    => 'PHP Hypertext Preprocessor',
-							'description' => 'PHP is a powerful language.',
-							'postDate'    => '02 May, 2020',
-							'author'      => 'James'
-						), 	
-						array(
-							'postName'    => 'HTML - Hypertext MArkup Language',
-							'description' => 'HTML is a markup language.',
-							'postDate'    => '21 Jan, 2020',
-							'author'      => 'Fredrix'
-						) 	
-					];
+					$query = "
+						SELECT
+							`pm`.*,
+							`um`.`user_name`
+						FROM
+							`post_master` pm,
+							`user_master` um
+						WHERE
+							`um`.`user_id` = `pm`.`post_author_id`
+							 AND `pm`.`post_status` = 'active'
+						ORDER BY `pm`.`post_id` DESC;
+					";
 
-					foreach ($posts as $post) {				
-					
+					$res = mysqli_query($conn, $query);
+
+					if (!$res) {
+						echo mysqli_error($conn);
+					}
+
+					while ($row = mysqli_fetch_object($res)) {
+
+						$desc = substr($row->post_description, 0, 250);
 						echo "
-							<div class='container-fluid post-container'>
-								<h3 class='text-primary font-weight-bold'>
-									{$post['postName']}
-								</h3>
-								<div>
-									by <span class='text-primary'>{$post['author']}</span>
-								</div>
-								<small class='text-muted mt-1'>
-									<span class='far fa-clock'></span> Posted on {$post['postDate']}
-								</small>
-								<hr>
-								<img id='postOneImg' src='https://via.placeholder.com/700x200' alt='' class='img-fluid'>
-								<hr>
-								<p id='postOneDescription'>
-									{$post['description']}
-								</p>
-								<a href='post.php' class='btn btn-primary text-white' data-toggle='tooltip' data-placement='bottom' title='Read more about this post.'>Read More <span class='fas fa-angle-right'></span> </a>
-								<hr>
-							</div>		
-						
-						";
-
+								<div class='container-fluid post-container'>
+									<h3 class='text-primary font-weight-bold'>
+										$row->post_name
+									</h3>
+									<div>
+										by <span class='text-primary'>$row->user_name</span>
+									</div>
+									<small class='text-muted mt-1'>
+										<span class='far fa-clock'></span> Posted on $row->post_date
+									</small>
+									<hr>
+									<img class='img-fluid' src='images/post/$row->post_image_url' alt='$row->post_name image' >
+									<hr>
+									<p class='text-justify text-muted'>
+										$desc...
+									</p>
+									<a href='post.php?post_id=$row->post_id' class='btn btn-sm btn-primary text-white' data-toggle='tooltip' data-placement='bottom' title='Read more about this post.'>Read More <span class='fas fa-angle-right'></span> </a>
+									<hr>
+								</div>		
+							
+							";
 					}
 
 				 ?>
