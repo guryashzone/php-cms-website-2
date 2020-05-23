@@ -6,17 +6,27 @@
 	    <li data-target="#cmsCarouselExample" data-slide-to="0" class="active"></li>
 	    <li data-target="#cmsCarouselExample" data-slide-to="1"></li>
 	    <li data-target="#cmsCarouselExample" data-slide-to="2"></li>
+	    <li data-target="#cmsCarouselExample" data-slide-to="3"></li>
+	    <li data-target="#cmsCarouselExample" data-slide-to="4"></li>
 	  </ol>
 	  <div class="carousel-inner">
-	    <div class="carousel-item active">
-	      <img class="d-block w-100" src="https://via.placeholder.com/700x200" alt="First slide">
-	    </div>
-	    <div class="carousel-item">
-	      <img class="d-block w-100" src="https://via.placeholder.com/700x200" alt="Second slide">
-	    </div>
-	    <div class="carousel-item">
-	      <img class="d-block w-100" src="https://via.placeholder.com/700x200" alt="Third slide">
-	    </div>
+	    <?php 
+	  		$query = "SELECT `post_name`, `post_image_url` FROM `post_master` ORDER BY `post_id` DESC LIMIT 5";
+	  		$res = mysqli_query($conn, $query);
+	  		$i = 0;
+	  		$class = 'active';
+	  		while ($row=mysqli_fetch_object($res)) {
+	  			if ($i != 0) {
+	  				$class = '';
+	  			}
+	  			echo "
+					<div class='carousel-item $class'>
+				      <img class='d-block w-100' src='images/post/$row->post_image_url' alt='$row->post_name'>
+				    </div>
+	  			";
+	  			$i++;
+	  		}
+	  	 ?>
 	  </div>
 	  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
 	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -104,7 +114,7 @@
 	<script>
 		$('.btn').tooltip();
 		$('.carousel').carousel({
-		  interval: 20000
+		  interval: 5000
 		})
 	</script>
 </body>

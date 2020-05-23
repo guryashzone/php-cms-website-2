@@ -16,6 +16,9 @@
 
 <div class="card bg-light mt-4 c2">
 	<div class="card-body">
+		<?php 
+			if (!isset($_SESSION['login_status'])) {
+		 ?>
 		<h6 class="card-title font-weight-bold">
 			Login
 		</h6>
@@ -25,7 +28,7 @@
 			</div>
 			<div class="input-group mt-2">
 				<div class="input-group-append">
-				    <button class="btn btn-outline-dark rounded showPwd"> <span class="fas fa-eye-slash"></span> </button>
+				    <button type="button" class="btn btn-outline-dark rounded showPwd"> <span class="fas fa-eye-slash"></span> </button>
 				</div>
 				<input type="password" name="userPwdInput" id="userPwdInput" class="form-control" placeholder="Password">
 				<div class="input-group-append">
@@ -33,6 +36,13 @@
 				</div>
 			</div>
 		</form>
+		<?php
+			} else {
+		?>
+			<a href="logout.php" class="btn btn-sm btn-danger btn-block">Logout</a>
+		<?php
+			}
+		?>
 	</div>
 </div>
 
@@ -51,7 +61,7 @@
 				// echo "<p class='text-primary m-0'>{$row['category_name']}</p>";
 				
 				while ($row = mysqli_fetch_object($res)) {
-					echo "<p class='text-primary m-0'>$row->category_name ($row->category_short_name)</p>";
+					echo "<a href='search.php?cat_id=$row->category_id' class='text-primary m-0'>$row->category_name ($row->category_short_name)</a><br>";
 				}
 			 ?>
 

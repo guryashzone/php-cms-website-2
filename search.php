@@ -9,18 +9,15 @@
 			</div>
 			<!-- Post Div Start-->
 			<div class="col-sm-12  col-md-8 col-lg-5">
-				<?php 
-					if (isset($_SESSION['login_status'])) {
-				 ?>
 				<div class="container post-container">
 					<div class="post">
 						<?php 
-							if (!isset($_GET['post_id']) || empty($_GET['post_id'])) {
+							if (!isset($_GET['cat_id']) || empty($_GET['cat_id'])) {
 								header('location:index.php');
 								exit('Invalid Argument Supplied');
 							}
 							
-							$post_id = mysqli_real_escape_string($conn, htmlspecialchars($_GET['post_id'])); 
+							$cat_id = mysqli_real_escape_string($conn, htmlspecialchars($_GET['cat_id'])); 
 							
 							$query = "
 								SELECT
@@ -32,13 +29,23 @@
 								WHERE
 									`um`.`user_id` = `pm`.`post_author_id`
 									 AND `pm`.`post_status` = 'active'
-									 AND `pm`.`post_id` = $post_id
+									 AND `pm`.`post_category` = $cat_id
 							";
 
 							$res = mysqli_query($conn, $query);
 
 							if (!$res) {
 								echo mysqli_error($conn);
+							}
+
+							$num_rows = mysqli_num_rows($res);
+
+							if ($num_rows == 0) {
+								echo "
+									<div class='alert alert-danger' role='alert'>
+									  No post found with related category. <a href='index.php' class='alert-link'>Go back</a>
+									</div>
+								";
 							}
 
 							while ($row = mysqli_fetch_object($res)) {
@@ -104,20 +111,11 @@
 
 					</div>
 					<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				</div>
-				<?php 
-					} else {
-						echo "
-							<div class='alert alert-danger' role='alert'>
-							  Please login to access this page.
-							</div>
-						";
-					}
-				 ?>
+			<br>
+			<br>
+			<br>
+			<br>
+			</div>
 			</div>
 			
 			<!-- Post Div End-->

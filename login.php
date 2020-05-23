@@ -1,52 +1,76 @@
 <?php 
-	require_once('connection.php');
+	require('header.php');
+	$error = "";
+	if (isset($_POST['loginBtn'])) {
 
-	if (isset($_REQUEST['loginBtn'])) {
+		$username = $_POST['userNameInput'];
+		$password = $_POST['userPwdInput'];
 
-		$username = $_REQUEST['userNameInput'];
-		$password = $_REQUEST['userPwdInput'];
-
-		$query = "SELECT * FROM user_table WHERE user_email='$username' AND user_pwd='$password'";
+		$query = "SELECT * FROM `user_master` WHERE `user_email`='$username'";
 		$res   = mysqli_query($conn, $query); 
 		$nums  = mysqli_num_rows($res);
 
 		if ( $nums == 1 ) {
-			$row   = mysqli_fetch_assoc($res);
-			$name  = $row['user_name'];
-			echo "<h1>Welcome $name</h1>";	
+			$row = mysqli_fetch_object($res);
+			
+			if ($row->user_email == $username && password_verify($password, $row->user_password)) {
+				$_SESSION['login_status'] = true;
+				$_SESSION['user_id']      = $row->user_id;
+				$_SESSION['user_name']    = $row->user_name;
+			} else {
+				$error = "Invalid Credentials!";
+			}
 		} else {
-			echo "<h1>Invalid Credentials!!</h1>";	
+			$error = "Invalid Credentials!";
 		}
-		
 
-		
-		
 	} else {
-		echo "Invalid request!";
+		$error = "Invalid Request Type!";
 	}
-	/**
-	 * http://localhost/phpmyadmin --> MySQL Admin
-	 * Database - Collection of Tables -- cms_database
-	 * Table - Rows - Data & Columns - Field Name
-	 * user_table
-	 *
-	 * $conn = mysqli_connect('localhost', 'root', '', 'cms_database'); # host, username, pwd, db_name
-	 *
-	 *
-	 *
-	 * 
-	 * Primary Key - Unique Key - NULL
-	 *
-	 *
-	 *  SELECT, INSERT, UPDATE & DELETE - CRUD OPERATION - Create Read Update Delete
-	 *
-	 *  SELECT column_name FROM table_name;
-	 *  SELECT user_name, user_email, user_phone FROM user_table
-	 *  SELECT * FROM user_table
-	 *
-	 * Conditions - WHERE
-	 * SELECT * FROM user_table WHERE user_id = 2;
-	 * SELECT * FROM user_table WHERE user_email = 'james@mymail.com' AND user_pwd = '12345';
-	 * 
-	 */
  ?>
+
+ <div class="container-fluid">
+ 	<div class="row mt-5">
+ 		<div class="col-sm-12 col-lg-2"> <br> </div>
+ 		<div class="col-sm-12 col-lg-8"> 
+			<?php 
+				if ($error != "") {
+					echo "
+							<div class='alert alert-danger' role='alert'>
+							  $error. <a href='index.php' class='alert-link'>Try again</a>
+							</div>
+						";
+				} else {
+					echo "
+							<div class='alert alert-success' role='alert'>
+							  Welcome <b>{$_SESSION['user_name']}</b>. Your login is successfull. <a href='index.php' class='alert-link'>Click here</a> to continue.
+							</div>
+						";
+				}
+			 ?>
+ 		</div>
+ 		<div class="col-sm-12 col-lg-2"> <br> </div>
+ 	</div>
+ </div>
+
+
+ <?php 
+/**
+ *
+ * Logged In 
+ *  - Create Post
+ *  - Edit POst
+ *  - Comment
+ *  - reply
+ *  - Full post
+ *  - Show him logout btn
+ *
+ * !logged in
+ *  - see front page
+ *  - Show him login btn
+ *
+ *
+ * 
+ */
+
+  ?>
