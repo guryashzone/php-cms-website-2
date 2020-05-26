@@ -1,4 +1,8 @@
-
+$(document).on('click', '#goToTopBtn', function(){
+	$("html, body").animate({
+		scrollTop:0
+	}, 500, 'swing')
+})
 
 $(document).on('click', '.showPwd', function(){
 	var type = $('#userPwdInput').attr('type');
@@ -11,9 +15,6 @@ $(document).on('click', '.showPwd', function(){
 	$('.showPwd').children('span').toggleClass('fa-eye-slash fa-eye');
 	
 })
-
-
-
 
 $(document).on('click', '#searchBlogBtn', function(){
 	var searchQuery = $('#searchInput').val();

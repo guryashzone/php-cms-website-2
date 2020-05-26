@@ -75,26 +75,39 @@
 			Recent Posts
 		</h6>
 		<div class="font-weight-bold">
-			<p class="text-primary m-0 mt-1">
-				<b>Javascript</b>
-				<img src="https://via.placeholder.com/50x20" class="float-right" alt="">
-				<small class="text-muted d-block">By Author</small>
-			</p>
-			<p class="text-primary m-0 mt-1">
-				<b>PHP CMS</b>
-				<img src="https://via.placeholder.com/50x20" class="float-right" alt="">
-				<small class="text-muted d-block">By Author</small>
-			</p>
-			<p class="text-primary m-0 mt-1">
-				<b>JQuery Framework</b>
-				<img src="https://via.placeholder.com/50x20" class="float-right" alt="">
-				<small class="text-muted d-block">By Author</small>
-			</p>
-			<p class="text-primary m-0 mt-1">
-				<b>Boostrap 4</b>
-				<img src="https://via.placeholder.com/50x20" class="float-right" alt="">
-				<small class="text-muted d-block">By Author</small>
-			</p>
+			<?php 
+				$query = "
+					SELECT
+						`pm`.`post_id`, `pm`.`post_name`, `pm`.`post_image_url`, `um`.`user_name`
+					FROM
+						`post_master` pm,
+						`user_master` um
+					WHERE
+						`um`.`user_id` = `pm`.`post_author_id`
+						 AND `pm`.`post_status` = 'active'
+					ORDER BY `pm`.`post_id` DESC LIMIT 5;
+				";
+
+				$res = mysqli_query($conn, $query);
+
+				if (!$res) {
+					echo mysqli_error($conn);
+				}
+
+				while ($row = mysqli_fetch_object($res)) {
+
+					echo "
+						<a href='post.php?post_id=$row->post_id'>
+							<p class='text-primary m-0 mt-1'>
+								<b>$row->post_name</b>
+								<img src='images/post/$row->post_image_url' class='float-right' alt='$row->post_name image' height='20' width='50'>
+								<small class='text-muted d-block'>By $row->user_name</small>
+							</p>
+						</a>
+						";
+				}
+
+			 ?>
 		</div>
 	</div>
 </div>

@@ -11,7 +11,7 @@
 	  </ol>
 	  <div class="carousel-inner">
 	    <?php 
-	  		$query = "SELECT `post_name`, `post_image_url` FROM `post_master` ORDER BY `post_id` DESC LIMIT 5";
+	  		$query = "SELECT `post_name`, `post_image_url` FROM `post_master` ORDER BY `post_name` ASC LIMIT 5";
 	  		$res = mysqli_query($conn, $query);
 	  		$i = 0;
 	  		$class = 'active';
@@ -114,7 +114,7 @@
 	<script>
 		$('.btn').tooltip();
 		$('.carousel').carousel({
-		  interval: 5000
+		  interval: 2000
 		})
 	</script>
 </body>
