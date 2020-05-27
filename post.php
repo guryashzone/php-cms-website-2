@@ -61,7 +61,7 @@
 												$row->post_description
 											</p>
 										</div>		
-									
+										<input type='hidden' id='post-id' value='$row->post_id'>
 									";
 							}
 
@@ -71,12 +71,12 @@
 					<div class="card bg-light">
 						<div class="card-body">
 							<h6>Leave a comment:</h6>
-							<textarea class="form-control" cols="30" rows="5"></textarea>
-							<button class="btn btn-primary mt-2">Post Comment</button>
+							<textarea class="form-control" cols="30" rows="2" placeholder="Enter you comment..."></textarea>
+							<button class="btn btn-sm btn-danger float-right mt-2">COMMENT</button>
 						</div>
 					</div>
 					<hr>
-					<div class="container-fluid">
+					<div class="container-fluid" id="post-comments">
 						<div class="media">
 						  <img class="mr-3" src="https://via.placeholder.com/50x50" alt="Generic placeholder image">
 						  <div class="media-body">
@@ -134,5 +134,47 @@
 		</div>
 	</div>
 	<?php require('footer.php'); ?>
+	<script>
+		function getPostComments () {
+			var post_id = $("#post-id").val();
+			// AJAX - Asynchronous Javascript & XML
+			$.ajax({
+				url : 'script/requests.php', // action
+				type: 'POST', // method
+				data : {
+					POST_TYPE : 'GET_COMMENTS', // input fields
+					POST_ID : post_id
+				},
+				success :  function (response) {
+					console.log("Server response : ", response)
+
+					var comment = JSON.parse(response);
+					console.log("Server response : ", comment);
+
+					if ( comment['error'] != 0 ) {
+						$("#post-comments").html('<p class="text-danger">'+ comment['error'] + '</p>');	
+						return;
+					}
+
+					$("#post-comments").html('');
+
+					for ( var i=0; i < comment['data'].length; i++ ) {
+						var com = `
+							<div class="media mt-3">
+							  <img class="mr-3" src="https://via.placeholder.com/50x50" alt="Generic placeholder image">
+							  <div class="media-body">
+							    <h6 class="mt-0 mb-0 text-primary">${comment['data'][i]['user_name']} <small class="text-muted"> <span class="far fa-clock"></span> ${comment['data'][i]['comment_date']}</small></h6>
+							    ${comment['data'][i]['comment_text']}
+							  </div>
+							</div>
+						`;
+						$("#post-comments").append(com);
+					}
+					
+				}
+			})
+		}
+		getPostComments();
+	</script>
 </body>
 </html>

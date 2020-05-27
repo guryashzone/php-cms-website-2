@@ -50,6 +50,7 @@
 
 							while ($row = mysqli_fetch_object($res)) {
 
+								$desc = substr($row->post_description, 0, 250);
 								echo "
 										<div class='container-fluid post-container'>
 											<h3 class='text-primary font-weight-bold'>
@@ -65,8 +66,12 @@
 											<img class='img-fluid' src='images/post/$row->post_image_url' alt='$row->post_name image' >
 											<hr>
 											<p class='text-justify text-muted'>
-												$row->post_description
+												$desc
 											</p>
+											<a href='post.php?post_id=$row->post_id' class='btn btn-sm btn-primary text-white' data-toggle='tooltip' data-placement='bottom' title='Read more about this post.'>
+												Read More <span class='fas fa-angle-right'></span>
+											</a>
+										<hr>
 										</div>		
 									
 									";
@@ -75,42 +80,6 @@
 						 ?>
 					</div>
 					<hr>
-					<div class="card bg-light">
-						<div class="card-body">
-							<h6>Leave a comment:</h6>
-							<textarea class="form-control" cols="30" rows="5"></textarea>
-							<button class="btn btn-primary mt-2">Post Comment</button>
-						</div>
-					</div>
-					<hr>
-					<div class="container-fluid">
-						<div class="media">
-						  <img class="mr-3" src="https://via.placeholder.com/50x50" alt="Generic placeholder image">
-						  <div class="media-body">
-						    <h5 class="mt-0">Javascript is fun <small class="text-muted"> <span class="far fa-clock"></span> 03 Apr, 2020 at 4:00 pm</small></h5>
-						    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-						  </div>
-						</div>
-
-						<div class="media mt-4">
-						  <img class="mr-3" src="https://via.placeholder.com/50x50" alt="Generic placeholder image">
-						  <div class="media-body">
-						    <h5 class="mt-0">Javascript is fun <small class="text-muted"> <span class="far fa-clock"></span> 03 Apr, 2020 at 4:00 pm</small></h5>
-						    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. 
-
-						    <div class="media mt-4">
-							  <img class="mr-3" src="https://via.placeholder.com/50x50" alt="Generic placeholder image">
-							  <div class="media-body">
-							    <h5 class="mt-0">Javascript is fun <small class="text-muted"> <span class="far fa-clock"></span> 03 Apr, 2020 at 4:00 pm</small></h5>
-							    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. 
-							 </div>
-							</div>
-						  </div>
-						</div>
-
-
-					</div>
-					<br>
 			<br>
 			<br>
 			<br>

@@ -85,7 +85,9 @@
 									<p class='text-justify text-muted'>
 										$desc...
 									</p>
-									<a href='post.php?post_id=$row->post_id' class='btn btn-sm btn-primary text-white' data-toggle='tooltip' data-placement='bottom' title='Read more about this post.'>Read More <span class='fas fa-angle-right'></span> </a>
+									<a href='post.php?post_id=$row->post_id' class='btn btn-sm btn-primary text-white' data-toggle='tooltip' data-placement='bottom' title='Read more about this post.'>
+										Read More <span class='fas fa-angle-right'></span>
+									</a>
 									<hr>
 								</div>		
 							
