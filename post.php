@@ -71,8 +71,8 @@
 					<div class="card bg-light">
 						<div class="card-body">
 							<h6>Leave a comment:</h6>
-							<textarea class="form-control" cols="30" rows="2" placeholder="Enter you comment..."></textarea>
-							<button class="btn btn-sm btn-danger float-right mt-2">COMMENT</button>
+							<textarea id="post-comment-text" class="form-control" cols="30" rows="2" placeholder="Enter you comment..."></textarea>
+							<button id="post-comment-btn" class="btn btn-sm btn-danger float-right mt-2">COMMENT</button>
 						</div>
 					</div>
 					<hr>
@@ -175,6 +175,38 @@
 			})
 		}
 		getPostComments();
+
+
+		$(document).on('click', '#post-comment-btn', function() {
+			var comment = $("#post-comment-text").val() || 0;
+			var post_id = $("#post-id").val();
+			console.log(comment)
+
+			if (!comment) {
+				alert('Please enter a comment!');
+				return;
+			}
+
+			$.ajax({
+				url: 'script/requests.php',
+				type: 'POST',
+				data : {
+					POST_TYPE : 'ADD_NEW_COMMENT',
+					COM_TEXT  : comment,
+					POST_ID   : post_id
+				},
+				success :  function(res) {
+					console.log(res)
+
+					if (res.trim() == 'success') {
+						getPostComments();
+						$("#post-comment-text").val('');
+					} else {
+						alert('Oops! Unable to post comment!! Please try again later.');
+					}
+				}
+			})
+		})
 	</script>
 </body>
 </html>
