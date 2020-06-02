@@ -12,10 +12,10 @@
 	$allowedExtensions = array('jpeg', 'jpg', 'png', 'webp');
 
 	if (isset($_POST['addPostBtn'])) {
-		$postName      = isset($_POST['postName']) ? addslashes($_POST['postName']) : exit('Invalid Post Name');
-		$postShortName = isset($_POST['postShortName']) ? addslashes($_POST['postShortName']) : exit('Invalid Post Short Name');
-		$postCategory  = isset($_POST['postCategory']) ? addslashes($_POST['postCategory']) : exit('Invalid Post Category');
-		$postDesc      = isset($_POST['postDesc']) ? addslashes($_POST['postDesc']) : exit('Invalid Post Image');
+		$postName      = isset($_POST['postName']) ? addslashes(htmlspecialchars(strip_tags($_POST['postName']))) : exit('Invalid Post Name');
+		$postShortName = isset($_POST['postShortName']) ? addslashes(htmlspecialchars(strip_tags($_POST['postShortName']))) : exit('Invalid Post Short Name');
+		$postCategory  = isset($_POST['postCategory']) ? addslashes(htmlspecialchars(strip_tags($_POST['postCategory']))) : exit('Invalid Post Category');
+		$postDesc      = isset($_POST['postDesc']) ? addslashes(htmlspecialchars(strip_tags($_POST['postDesc']))) : exit('Invalid Post Image');
 
 		$postAuthor    = $_SESSION['user_id'];
 		// $postDate      = date('Y-m-d h:i:s', time()); #2020-05-21 04:05:00 
